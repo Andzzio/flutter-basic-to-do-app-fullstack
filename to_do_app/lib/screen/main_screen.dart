@@ -62,6 +62,11 @@ class _MainScreenState extends State<MainScreen> {
                   itemBuilder: (context, index) {
                     return TaskItem(
                       task: tasks[index],
+                      onChanged: (value) {
+                        setState(() {
+                          tasks[index].completed = value;
+                        });
+                      },
                       onDelete: () {
                         setState(() {
                           tasks.removeAt(index);

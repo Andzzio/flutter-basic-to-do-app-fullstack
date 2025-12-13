@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/models/task.dart';
 
-class TaskItem extends StatefulWidget {
+class TaskItem extends StatelessWidget {
   final Task task;
   final VoidCallback? onDelete;
-  const TaskItem({super.key, required this.task, this.onDelete});
+  final ValueChanged<bool>? onChanged;
+  const TaskItem({
+    super.key,
+    required this.task,
+    this.onDelete,
+    this.onChanged,
+  });
 
-  @override
-  State<TaskItem> createState() => _TaskItemState();
-}
-
-class _TaskItemState extends State<TaskItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,17 +26,15 @@ class _TaskItemState extends State<TaskItem> {
       child: Row(
         children: [
           Checkbox(
-            value: widget.task.completed,
+            value: task.completed,
             onChanged: (value) {
-              setState(() {
-                widget.task.completed = value!;
-              });
+              onChanged?.call(value!);
             },
           ),
-          Text(widget.task.title),
+          Text(task.title),
           Spacer(),
           IconButton(
-            onPressed: widget.onDelete,
+            onPressed: onDelete,
             icon: Icon(Icons.delete, color: Colors.redAccent),
           ),
         ],
