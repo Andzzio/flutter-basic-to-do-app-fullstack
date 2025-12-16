@@ -1,22 +1,23 @@
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import Session, select
-from models.task import Task
 from databases.database import create_db_and_tables, engine
+from models.task import Task
 from contextlib import asynccontextmanager
-   
+
 def get_session():
     with Session(engine) as session:
-        yield session   
+        yield session
 
 @asynccontextmanager
-async def lifespan(app:FastAPI):
+async def life_span(app: FastAPI):
     create_db_and_tables()
     yield
 
-app = FastAPI(lifespan=lifespan)
 
-app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
+app = FastAPI(lifespan=life_span)
+
+app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_credentials=True, allow_headers=["*"], allow_methods=["*"])
 
 @app.post("/tasks")
 def create_task(task: Task, session: Session = Depends(get_session)):
@@ -56,6 +57,7 @@ def delete_task(task_id: int, session: Session = Depends(get_session)):
     
     if not db_task:
         raise HTTPException(status_code=404, detail="Task not found")
+    
     session.delete(db_task)
     session.commit()
     
