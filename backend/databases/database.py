@@ -1,9 +1,9 @@
-from sqlmodel import create_engine, SQLModel
+from sqlmodel import SQLModel, create_engine
 
-sqlite_file = "todo.db"
-sqlite_url = f"sqlite:///{sqlite_file}"
+db_name = "todo.db"
+db_route = f"sqlite:///{db_name}"
 
-engine = create_engine(sqlite_url, connect_args={"check_same_thread": False})
+engine = create_engine(db_route, connect_args={"check_same_thread": False})
 
 def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
