@@ -3,7 +3,6 @@
 A robust and modern task management application, built with a real Fullstack architecture separated into two layers. This project serves as a demonstration of the integration between Flutter and Python (FastAPI).
 
 ![Main App Screen](assets/app.png)
-_(Place a screenshot of your main screen here)_
 
 ## 🏗️ Architecture
 
@@ -88,12 +87,10 @@ Here you can place screenshots of how the application looks.
 ### Creating a Task
 
 ![Create Task](assets/field_bar.png)
-_(Upload a photo of writing in the text field)_
 
 ### Completed vs Pending Task
 
 ![Task List](assets/task_list.png)
-_(Upload a photo showing tasks with and without checks)_
 
 ---
 
